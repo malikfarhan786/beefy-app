@@ -51,7 +51,11 @@ export function connectWallet(web3Modal) {
 
       const accounts = await web3.eth.getAccounts();
       const address = accounts[0];
-      const networkId = await web3.eth.chainId();
+      const networkId = await web3.eth.net.getId();
+      const chainId = await web3.eth.getChainId();
+      const chainId2 = await web3.eth.chainId();
+
+      alert('Network', networkId, 'Chain', chainId, 'Chain B', chainId2);
 
       dispatch({ type: HOME_CONNECT_WALLET_SUCCESS, data: { web3, address, networkId } });
     } catch (error) {
