@@ -31,6 +31,8 @@ export default function App({ children }) {
     web3,
     address,
     networkId,
+    chainId,
+    chainId2,
     connected,
     connectWalletPending,
   } = useConnectWallet();
@@ -50,17 +52,17 @@ export default function App({ children }) {
     }
   }, [web3Modal, connectWallet]);
 
-  useEffect(() => {
-    if (
-      web3 &&
-      address &&
-      !connectWalletPending &&
-      networkId &&
-      Boolean(networkId !== Number(process.env.REACT_APP_NETWORK_ID))
-    ) {
-      alert(t('Network-Error'));
-    }
-  }, [web3, address, networkId, connectWalletPending, t]);
+  // useEffect(() => {
+  //   if (
+  //     web3 &&
+  //     address &&
+  //     !connectWalletPending &&
+  //     networkId &&
+  //     Boolean(networkId !== Number(process.env.REACT_APP_NETWORK_ID))
+  //   ) {
+  //     alert(t('Network-Error'));
+  //   }
+  // }, [web3, address, networkId, connectWalletPending, t]);
 
   return (
     <StylesProvider injectFirst>
@@ -88,7 +90,9 @@ export default function App({ children }) {
               />
               <div className={classes.container}>
                 <div className={classes.children}>
-                  {Boolean(networkId === Number(process.env.REACT_APP_NETWORK_ID)) && children}
+                  <h1>{networkId}</h1>
+                  <h1>{chainId}</h1>
+                  <h1>{chainId2}</h1>
                   <Notifier />
                 </div>
               </div>
