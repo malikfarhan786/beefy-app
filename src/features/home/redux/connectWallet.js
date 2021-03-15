@@ -51,14 +51,13 @@ export function connectWallet(web3Modal) {
 
       const accounts = await web3.eth.getAccounts();
       const address = accounts[0];
-      const networkId = await web3.eth.net.getId();
-      const chainId = await web3.eth.getChainId();
-      const chainId2 = await web3.eth.chainId();
 
-      dispatch({
-        type: HOME_CONNECT_WALLET_SUCCESS,
-        data: { web3, address, networkId, chainId, chainId2 },
-      });
+      let networkId = await web3.eth.getChainId();
+      if (networkId === 86) {
+        networkId = 56;
+      }
+
+      dispatch({ type: HOME_CONNECT_WALLET_SUCCESS, data: { web3, address, networkId } });
     } catch (error) {
       dispatch({ type: HOME_CONNECT_WALLET_FAILURE });
     }
@@ -67,21 +66,11 @@ export function connectWallet(web3Modal) {
 
 export function useConnectWallet() {
   const dispatch = useDispatch();
-  const {
-    web3,
-    address,
-    networkId,
-    chainId,
-    chainId2,
-    connected,
-    connectWalletPending,
-  } = useSelector(
+  const { web3, address, networkId, connected, connectWalletPending } = useSelector(
     state => ({
       web3: state.home.web3,
       address: state.home.address,
       networkId: state.home.networkId,
-      chainId: state.home.chainId,
-      chainId2: state.home.chainId2,
       connected: state.home.connected,
       connectWalletPending: state.home.connectWalletPending,
     }),
@@ -89,16 +78,7 @@ export function useConnectWallet() {
   );
   const boundAction = useCallback(data => dispatch(connectWallet(data)), [dispatch]);
 
-  return {
-    web3,
-    address,
-    networkId,
-    chainId,
-    chainId2,
-    connected,
-    connectWalletPending,
-    connectWallet: boundAction,
-  };
+  return { web3, address, networkId, connected, connectWalletPending, connectWallet: boundAction };
 }
 
 export function reducer(state, action) {
@@ -115,8 +95,6 @@ export function reducer(state, action) {
         web3: action.data.web3,
         address: process.env.ACCOUNT ? process.env.ACCOUNT : action.data.address,
         networkId: action.data.networkId,
-        chainId: action.data.chainId,
-        chainId2: action.data.chainId2,
         connected: true,
         connectWalletPending: false,
       };
