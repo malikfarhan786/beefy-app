@@ -14,7 +14,7 @@ import useVisiblePools from '../../hooks/useVisiblePools';
 
 import Pool from '../Pool/Pool';
 import Filters from '../Filters/Filters';
-import { useFetchPoolData } from '../../../stake/redux/fetchPoolData';
+
 import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles(styles);
