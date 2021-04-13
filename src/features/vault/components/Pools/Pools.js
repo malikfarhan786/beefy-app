@@ -12,9 +12,9 @@ import VisiblePools from '../VisiblePools/VisiblePools';
 import styles from './styles';
 import usePoolsTvl from '../../hooks/usePoolsTvl';
 import { formatGlobalTvl } from 'features/helpers/format';
-import { useFetchPoolsInfo } from 'features/stake/redux/fetchPoolsInfo';
+
 import { byDecimals } from 'features/helpers/bignumber';
-import { useFetchPoolData } from '../../../stake/redux/fetchPoolData';
+
 
 const FETCH_INTERVAL_MS = 30 * 1000;
 
