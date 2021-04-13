@@ -42,8 +42,8 @@ const VisiblePools = ({
     const timestamp = Math.floor(Date.now() / 1000);
     for (let index in stake) {
       if(stake[index].periodFinish >= timestamp) {
-        for(let key in pools) {
-          if(stake[index].token === pools[index].earnedToken) {
+        {
+if(stake[index].token === pools[index].earnedToken) {
             pools[index].launchpool = stake[index].id;
             continue;
           }
